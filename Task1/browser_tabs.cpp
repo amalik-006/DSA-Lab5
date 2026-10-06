@@ -16,12 +16,15 @@ struct Tab
     Tab* next;
     Tab* prev;
 
-    Tab(int tabId, const string& tabTitle, const string& tabUrl)
+    Tab(int tabId, 
+        const string& tabTitle, 
+        const string& tabUrl)
     {
         id = tabId;
         title = tabTitle;
         url = tabUrl;
 
+        // A new node initially points to itself
         next = this;
         prev = this;
     }
@@ -34,19 +37,22 @@ private:
     Tab* current;
 
 public:
+
     BrowserTabManager()
     {
         current = nullptr;
     }
 
-    // Destructor releases all dynamically allocated nodes
+    // Destructor prevents memory leaks
     ~BrowserTabManager()
     {
         clearAll();
     }
 
     // 1. Open a new tab after the current tab
-    void openNewTab(int id, const string& title, const string& url)
+    void openNewTab(int id, 
+                    const string& title, 
+                    const string& url)
     {
         Tab* newTab = new Tab(id, title, url);
 
